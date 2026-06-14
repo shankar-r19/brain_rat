@@ -385,7 +385,7 @@
 				// Let the rat have his moment, then continue to the store.
 				setTimeout(function () {
 					if (href && href !== "#") {
-						window.open(href, "_blank", "noopener");
+						window.location.href = href;
 					}
 					popup.classList.remove("show");
 					popup.setAttribute("aria-hidden", "true");
