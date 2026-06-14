@@ -12,14 +12,14 @@
 	<meta name="description" content="A browser extension that gently interrupts your doomscrolling. Slow down. You're not a rat." />
 	<style>
 		:root {
-			--bg: #1b1f3b;
-			--bg2: #2a2f55;
-			--panel: rgba(27, 31, 59, 0.85);
-			--accent: #ffd1dc;
-			--accent2: #f6c177;
-			--text: #f4f4f8;
-			--muted: #c7c9e0;
-			--border: rgba(255, 255, 255, 0.18);
+			--bg: #fff3ae;
+			--bg2: #ffffd6;
+			--panel: rgba(255, 255, 255, 0.7);
+			--accent: #d8c6a2;
+			--accent2: #b89b5e;
+			--text: #4a3b1e;
+			--muted: #7a6a45;
+			--border: rgba(74, 59, 30, 0.18);
 		}
 
 		* { box-sizing: border-box; }
@@ -59,7 +59,7 @@
 			margin: 0 auto 1.5rem;
 			border-radius: 24px;
 			border: 1px solid var(--border);
-			background: rgba(255, 255, 255, 0.04);
+			background: rgba(255, 255, 255, 0.5);
 			display: flex;
 			align-items: center;
 			justify-content: center;
@@ -113,24 +113,24 @@
 			letter-spacing: 0.05em;
 			text-transform: uppercase;
 			font-size: 0.85rem;
-			background: rgba(255, 255, 255, 0.04);
+			background: rgba(255, 255, 255, 0.5);
 			transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
 		}
 
 		.button:hover {
 			transform: translateY(-2px);
-			background: rgba(255, 255, 255, 0.1);
-			border-color: var(--accent);
+			background: rgba(255, 255, 255, 0.85);
+			border-color: var(--accent2);
 		}
 
 		.button.primary {
 			background: var(--accent);
-			color: #2a1b22;
-			border-color: var(--accent);
+			color: #4a3b1e;
+			border-color: var(--accent2);
 		}
 
 		.button.primary:hover {
-			background: #ffe3ea;
+			background: #ecdab0;
 		}
 
 		.button small {
@@ -217,7 +217,7 @@
 		.rat-popup {
 			position: fixed;
 			inset: 0;
-			background: rgba(10, 12, 28, 0.82);
+			background: rgba(74, 59, 30, 0.55);
 			display: none;
 			align-items: center;
 			justify-content: center;
@@ -239,7 +239,7 @@
 		}
 
 		.rat-popup p {
-			color: var(--accent);
+			color: #fff3ae;
 			font-style: italic;
 			font-size: 1.4rem;
 			margin-top: 1.25rem;
