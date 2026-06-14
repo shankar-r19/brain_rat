@@ -1,0 +1,406 @@
+<!DOCTYPE HTML>
+<!--
+	Landing page for "Not a Rat" browser extension.
+	Layout inspired by Dimension by HTML5 UP (html5up.net | @ajlkn),
+	rebuilt as a single self-contained file for GitHub Pages.
+-->
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Not a Rat — slow down, you're not a rat</title>
+	<meta name="description" content="A browser extension that gently interrupts your doomscrolling. Slow down. You're not a rat." />
+	<style>
+		:root {
+			--bg: #1b1f3b;
+			--bg2: #2a2f55;
+			--panel: rgba(27, 31, 59, 0.85);
+			--accent: #ffd1dc;
+			--accent2: #f6c177;
+			--text: #f4f4f8;
+			--muted: #c7c9e0;
+			--border: rgba(255, 255, 255, 0.18);
+		}
+
+		* { box-sizing: border-box; }
+
+		html, body {
+			margin: 0;
+			padding: 0;
+			min-height: 100%;
+		}
+
+		body {
+			font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+			color: var(--text);
+			line-height: 1.65;
+			background: linear-gradient(135deg, var(--bg) 0%, var(--bg2) 100%);
+			background-attachment: fixed;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			padding: 4rem 1.5rem;
+		}
+
+		.wrapper {
+			width: 100%;
+			max-width: 760px;
+		}
+
+		/* Header / hero */
+		.hero {
+			text-align: center;
+			margin-bottom: 3.5rem;
+		}
+
+		.logo {
+			width: 120px;
+			height: 120px;
+			margin: 0 auto 1.5rem;
+			border-radius: 24px;
+			border: 1px solid var(--border);
+			background: rgba(255, 255, 255, 0.04);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			overflow: hidden;
+			box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+		}
+
+		.logo img {
+			width: 84px;
+			height: 84px;
+			image-rendering: -webkit-optimize-contrast;
+		}
+
+		h1 {
+			font-size: 3rem;
+			letter-spacing: 0.18em;
+			text-transform: uppercase;
+			margin: 0 0 0.4rem;
+			font-weight: 700;
+		}
+
+		.tagline {
+			font-size: 1.35rem;
+			font-style: italic;
+			color: var(--accent);
+			margin: 0 0 1.5rem;
+		}
+
+		.hero p {
+			color: var(--muted);
+			max-width: 560px;
+			margin: 0 auto 2rem;
+		}
+
+		/* Buttons */
+		.actions {
+			display: flex;
+			gap: 1rem;
+			justify-content: center;
+			flex-wrap: wrap;
+		}
+
+		.button {
+			display: inline-block;
+			text-decoration: none;
+			color: var(--text);
+			border: 1px solid var(--border);
+			border-radius: 10px;
+			padding: 0.85rem 1.6rem;
+			font-weight: 600;
+			letter-spacing: 0.05em;
+			text-transform: uppercase;
+			font-size: 0.85rem;
+			background: rgba(255, 255, 255, 0.04);
+			transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
+		}
+
+		.button:hover {
+			transform: translateY(-2px);
+			background: rgba(255, 255, 255, 0.1);
+			border-color: var(--accent);
+		}
+
+		.button.primary {
+			background: var(--accent);
+			color: #2a1b22;
+			border-color: var(--accent);
+		}
+
+		.button.primary:hover {
+			background: #ffe3ea;
+		}
+
+		.button small {
+			display: block;
+			font-size: 0.65rem;
+			opacity: 0.7;
+			letter-spacing: 0.04em;
+			text-transform: none;
+			font-weight: 400;
+			margin-top: 2px;
+		}
+
+		/* Sections / cards */
+		.card {
+			background: var(--panel);
+			border: 1px solid var(--border);
+			border-radius: 16px;
+			padding: 2.25rem 2rem;
+			margin-bottom: 1.75rem;
+			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+		}
+
+		.card h2 {
+			margin: 0 0 0.75rem;
+			font-size: 1.5rem;
+			letter-spacing: 0.06em;
+			text-transform: uppercase;
+			color: var(--accent2);
+		}
+
+		.card p { color: var(--muted); margin: 0 0 1rem; }
+		.card p:last-child { margin-bottom: 0; }
+
+		.demo {
+			display: block;
+			margin: 1.5rem auto 0;
+			max-width: 280px;
+			width: 100%;
+			border-radius: 12px;
+			border: 1px solid var(--border);
+		}
+
+		.features {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+			display: grid;
+			gap: 1rem;
+		}
+
+		.features li {
+			padding-left: 1.5rem;
+			position: relative;
+			color: var(--muted);
+		}
+
+		.features li::before {
+			content: "🐀";
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+
+		.features strong { color: var(--text); }
+
+		/* Footer */
+		footer {
+			text-align: center;
+			color: var(--muted);
+			font-size: 0.85rem;
+			margin-top: 2rem;
+			opacity: 0.8;
+		}
+
+		footer a { color: var(--accent); }
+
+		@media (max-width: 560px) {
+			h1 { font-size: 2.2rem; }
+			body { padding: 2.5rem 1rem; }
+			.card { padding: 1.75rem 1.4rem; }
+		}
+
+		/* Squeak popup overlay */
+		.rat-popup {
+			position: fixed;
+			inset: 0;
+			background: rgba(10, 12, 28, 0.82);
+			display: none;
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+			z-index: 9999;
+			backdrop-filter: blur(4px);
+			cursor: pointer;
+		}
+
+		.rat-popup.show { display: flex; animation: fadeIn 0.2s ease; }
+
+		.rat-popup img {
+			max-width: 340px;
+			width: 72vw;
+			border-radius: 18px;
+			border: 2px solid var(--accent);
+			box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+			animation: pop 0.35s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+		}
+
+		.rat-popup p {
+			color: var(--accent);
+			font-style: italic;
+			font-size: 1.4rem;
+			margin-top: 1.25rem;
+			letter-spacing: 0.05em;
+		}
+
+		@keyframes pop {
+			0% { transform: scale(0.2); opacity: 0; }
+			100% { transform: scale(1); opacity: 1; }
+		}
+
+		@keyframes fadeIn {
+			from { opacity: 0; }
+			to { opacity: 1; }
+		}
+	</style>
+</head>
+<body>
+	<div class="wrapper">
+
+		<!-- Hero -->
+		<header class="hero">
+			<div class="logo">
+				<img src="icon.png" alt="Not a Rat icon" />
+			</div>
+			<h1>Not a Rat</h1>
+			<p class="tagline">Slow down. You're not a rat.</p>
+			<p>
+				Hello! You've been scrolling like a tiny, frantic creature in a maze,
+				clicking with the manic energy of a raccoon who's found an unattended bin.
+				This little extension is here to take you by your metaphorical shoulders and say:
+				breathe. You are a sophisticated person of taste, not a rodent chasing a pellet.
+			</p>
+			<div class="actions">
+			
+				<a class="button primary" href="https://addons.mozilla.org/en-US/firefox/addon/not-a-rat/" id="firefox-link">
+					Get it for Firefox
+					<small>Mozilla Add-ons</small>
+				</a>
+				
+				<a class="button" href="https://chromewebstore.google.com/detail/not-a-rat/hhlgcbmpmekjlflbccelhbjaemojenba?authuser=0&hl=en" id="chrome-link">
+					Get it for Chrome
+					<small>Chrome Web Store</small>
+				</a>
+			</div>
+		</header>
+
+		<!-- What is it -->
+		<section class="card">
+			<h2>What, exactly, is this?</h2>
+			<p>
+				It is, simply, the most chic intervention your browser has ever staged.
+				When <strong>Not a Rat</strong> notices you doomscrolling or click-click-clicking
+				like a wild animal, it gently — but with <em>flair</em> — interrupts the spiral.
+			</p>
+			<p>
+				A rat appears. It is not judging you, exactly,
+				but it would like you to consider your choices. Then it asks you,
+				with the warmth of a slightly disappointed mother, to take a deep breath.
+			</p>
+			
+		</section>
+
+		<!-- Features -->
+		<section class="card">
+			<h2>The amenities, darling</h2>
+			<ul class="features">
+				<li><strong>A forced little pause</strong> — the scroll buttons lock for five seconds while you take a deep breath. Consider it a spa moment.</li>
+				<li><strong>Tasteful Up / Down controls</strong> — for navigating with intention, like a person, not a panicked little mammal.</li>
+				<li><strong>Collects absolutely nothing</strong> — no data, no tracking, no telemetry. What happens between you and your scrolling stays there.</li>
+			</ul>
+		</section>
+
+		<!-- About -->
+		<section class="card">
+			<h2>A word on the philosophy</h2>
+			<p>
+				We have all, at one point, found ourselves at the bottom of a feed at an
+				ungodly hour, eyes glazed, thumb moving of its own accord. It's the kind of
+				behavior one simply does not discuss at brunch.
+			</p>
+			<p>
+				<strong>Not a Rat</strong> exists to restore your dignity. It is a small,
+				loving nudge, the friend who gently removes the cocktail from your hand and
+				says, "I think you've had a lovely time, and now it's time to drink some water."
+				You are capable of so much more than this. So slow down. You're not a rat.
+			</p>
+		</section>
+
+		<footer>
+			<p>&copy; Not a Rat. Made with love and mild concern.</p>
+		</footer>
+
+	</div>
+
+	<!-- Squeak popup: shows the rat + plays "squeak squeak" before sending you to the store -->
+	<div class="rat-popup" id="rat-popup" aria-hidden="true">
+		<img src="rat.gif" alt="A very excited rat" />
+		<p>squeak squeak! 🐀</p>
+	</div>
+
+	<script>
+		(function () {
+			var popup = document.getElementById("rat-popup");
+
+			// Synthesize a "squeak squeak" with the Web Audio API (no external file needed).
+			function squeak() {
+				try {
+					var Ctx = window.AudioContext || window.webkitAudioContext;
+					if (!Ctx) return;
+					var ctx = new Ctx();
+
+					function chirp(start) {
+						var osc = ctx.createOscillator();
+						var gain = ctx.createGain();
+						osc.type = "sawtooth";
+						osc.frequency.setValueAtTime(1400, start);
+						osc.frequency.exponentialRampToValueAtTime(2600, start + 0.08);
+						osc.frequency.exponentialRampToValueAtTime(1200, start + 0.16);
+						gain.gain.setValueAtTime(0.0001, start);
+						gain.gain.exponentialRampToValueAtTime(0.25, start + 0.02);
+						gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.18);
+						osc.connect(gain).connect(ctx.destination);
+						osc.start(start);
+						osc.stop(start + 0.2);
+					}
+
+					var now = ctx.currentTime;
+					chirp(now);        // squeak
+					chirp(now + 0.25); // squeak
+				} catch (e) { /* audio is a nicety, never block navigation */ }
+			}
+
+			function handle(e) {
+				var link = e.currentTarget;
+				var href = link.getAttribute("href");
+				e.preventDefault();
+
+				popup.classList.add("show");
+				popup.setAttribute("aria-hidden", "false");
+				squeak();
+
+				// Let the rat have his moment, then continue to the store.
+				setTimeout(function () {
+					if (href && href !== "#") {
+						window.open(href, "_blank", "noopener");
+					}
+					popup.classList.remove("show");
+					popup.setAttribute("aria-hidden", "true");
+				}, 1300);
+			}
+
+			document.getElementById("firefox-link").addEventListener("click", handle);
+			document.getElementById("chrome-link").addEventListener("click", handle);
+
+			// Tap/click the overlay to dismiss it early.
+			popup.addEventListener("click", function () {
+				popup.classList.remove("show");
+				popup.setAttribute("aria-hidden", "true");
+			});
+		})();
+	</script>
+</body>
+</html>
