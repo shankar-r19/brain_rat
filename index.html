@@ -1,406 +1,262 @@
-<!DOCTYPE HTML>
-<!--
-	Landing page for "Not a Rat" browser extension.
-	Layout inspired by Dimension by HTML5 UP (html5up.net | @ajlkn),
-	rebuilt as a single self-contained file for GitHub Pages.
--->
+<!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title>Not a Rat — slow down, you're not a rat</title>
-	<meta name="description" content="A browser extension that gently interrupts your doomscrolling. Slow down. You're not a rat." />
-	<style>
-		:root {
-			--bg: #fff3ae;
-			--bg2: #ffffd6;
-			--panel: rgba(255, 255, 255, 0.7);
-			--accent: #d8c6a2;
-			--accent2: #b89b5e;
-			--text: #4a3b1e;
-			--muted: #7a6a45;
-			--border: rgba(74, 59, 30, 0.18);
-		}
-
-		* { box-sizing: border-box; }
-
-		html, body {
-			margin: 0;
-			padding: 0;
-			min-height: 100%;
-		}
-
-		body {
-			font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
-			color: var(--text);
-			line-height: 1.65;
-			background: linear-gradient(135deg, var(--bg) 0%, var(--bg2) 100%);
-			background-attachment: fixed;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			padding: 4rem 1.5rem;
-		}
-
-		.wrapper {
-			width: 100%;
-			max-width: 760px;
-		}
-
-		/* Header / hero */
-		.hero {
-			text-align: center;
-			margin-bottom: 3.5rem;
-		}
-
-		.logo {
-			width: 120px;
-			height: 120px;
-			margin: 0 auto 1.5rem;
-			border-radius: 24px;
-			border: 1px solid var(--border);
-			background: rgba(255, 255, 255, 0.5);
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			overflow: hidden;
-			box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
-		}
-
-		.logo img {
-			width: 84px;
-			height: 84px;
-			image-rendering: -webkit-optimize-contrast;
-		}
-
-		h1 {
-			font-size: 3rem;
-			letter-spacing: 0.18em;
-			text-transform: uppercase;
-			margin: 0 0 0.4rem;
-			font-weight: 700;
-		}
-
-		.tagline {
-			font-size: 1.35rem;
-			font-style: italic;
-			color: var(--accent);
-			margin: 0 0 1.5rem;
-		}
-
-		.hero p {
-			color: var(--muted);
-			max-width: 560px;
-			margin: 0 auto 2rem;
-		}
-
-		/* Buttons */
-		.actions {
-			display: flex;
-			gap: 1rem;
-			justify-content: center;
-			flex-wrap: wrap;
-		}
-
-		.button {
-			display: inline-block;
-			text-decoration: none;
-			color: var(--text);
-			border: 1px solid var(--border);
-			border-radius: 10px;
-			padding: 0.85rem 1.6rem;
-			font-weight: 600;
-			letter-spacing: 0.05em;
-			text-transform: uppercase;
-			font-size: 0.85rem;
-			background: rgba(255, 255, 255, 0.5);
-			transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
-		}
-
-		.button:hover {
-			transform: translateY(-2px);
-			background: rgba(255, 255, 255, 0.85);
-			border-color: var(--accent2);
-		}
-
-		.button.primary {
-			background: var(--accent);
-			color: #4a3b1e;
-			border-color: var(--accent2);
-		}
-
-		.button.primary:hover {
-			background: #ecdab0;
-		}
-
-		.button small {
-			display: block;
-			font-size: 0.65rem;
-			opacity: 0.7;
-			letter-spacing: 0.04em;
-			text-transform: none;
-			font-weight: 400;
-			margin-top: 2px;
-		}
-
-		/* Sections / cards */
-		.card {
-			background: var(--panel);
-			border: 1px solid var(--border);
-			border-radius: 16px;
-			padding: 2.25rem 2rem;
-			margin-bottom: 1.75rem;
-			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-		}
-
-		.card h2 {
-			margin: 0 0 0.75rem;
-			font-size: 1.5rem;
-			letter-spacing: 0.06em;
-			text-transform: uppercase;
-			color: var(--accent2);
-		}
-
-		.card p { color: var(--muted); margin: 0 0 1rem; }
-		.card p:last-child { margin-bottom: 0; }
-
-		.demo {
-			display: block;
-			margin: 1.5rem auto 0;
-			max-width: 280px;
-			width: 100%;
-			border-radius: 12px;
-			border: 1px solid var(--border);
-		}
-
-		.features {
-			list-style: none;
-			padding: 0;
-			margin: 0;
-			display: grid;
-			gap: 1rem;
-		}
-
-		.features li {
-			padding-left: 1.5rem;
-			position: relative;
-			color: var(--muted);
-		}
-
-		.features li::before {
-			content: "🐀";
-			position: absolute;
-			left: 0;
-			top: 0;
-		}
-
-		.features strong { color: var(--text); }
-
-		/* Footer */
-		footer {
-			text-align: center;
-			color: var(--muted);
-			font-size: 0.85rem;
-			margin-top: 2rem;
-			opacity: 0.8;
-		}
-
-		footer a { color: var(--accent); }
-
-		@media (max-width: 560px) {
-			h1 { font-size: 2.2rem; }
-			body { padding: 2.5rem 1rem; }
-			.card { padding: 1.75rem 1.4rem; }
-		}
-
-		/* Squeak popup overlay */
-		.rat-popup {
-			position: fixed;
-			inset: 0;
-			background: rgba(74, 59, 30, 0.55);
-			display: none;
-			align-items: center;
-			justify-content: center;
-			flex-direction: column;
-			z-index: 9999;
-			backdrop-filter: blur(4px);
-			cursor: pointer;
-		}
-
-		.rat-popup.show { display: flex; animation: fadeIn 0.2s ease; }
-
-		.rat-popup img {
-			max-width: 340px;
-			width: 72vw;
-			border-radius: 18px;
-			border: 2px solid var(--accent);
-			box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-			animation: pop 0.35s cubic-bezier(0.18, 0.89, 0.32, 1.28);
-		}
-
-		.rat-popup p {
-			color: #fff3ae;
-			font-style: italic;
-			font-size: 1.4rem;
-			margin-top: 1.25rem;
-			letter-spacing: 0.05em;
-		}
-
-		@keyframes pop {
-			0% { transform: scale(0.2); opacity: 0; }
-			100% { transform: scale(1); opacity: 1; }
-		}
-
-		@keyframes fadeIn {
-			from { opacity: 0; }
-			to { opacity: 1; }
-		}
-	</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brain Rat — Screen Time, Collected</title>
+<meta name="description" content="Coming soon: Brain Rat is a collectible figure that locks your distraction apps. Walk to your rat, tap your phone on its head, earn your minutes. Nine to collect, one secret. Plus Not a Rat, the free browser extension, out now.">
+<link rel="icon" href="assets/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-	<div class="wrapper">
 
-		<!-- Hero -->
-		<header class="hero">
-			<div class="logo">
-				<img src="icon.png" alt="Not a Rat icon" />
-			</div>
-			<h1>Not a Rat</h1>
-			<p class="tagline">Slow down. You're not a rat.</p>
-			<p>
-				Hello! You've been scrolling like a tiny, frantic creature in a maze,
-				clicking with the manic energy of a raccoon who's found an unattended bin.
-				This little extension is here to take you by your metaphorical shoulders and say:
-				breathe. You are a sophisticated person of taste, not a rodent chasing a pellet.
-			</p>
-			<div class="actions">
-			
-				<a class="button primary" href="https://addons.mozilla.org/en-US/firefox/addon/not-a-rat/" id="firefox-link">
-					Get it for Firefox
-					<small>Mozilla Add-ons</small>
-				</a>
-				
-				<a class="button" href="https://chromewebstore.google.com/detail/not-a-rat/hhlgcbmpmekjlflbccelhbjaemojenba?authuser=0&hl=en" id="chrome-link">
-					Get it for Chrome
-					<small>Chrome Web Store</small>
-				</a>
-			</div>
-		</header>
+<div id="bar"></div>
 
-		<!-- What is it -->
-		<section class="card">
-			<h2>What, exactly, is this?</h2>
-			<p>
-				It is, simply, the most chic intervention your browser has ever staged.
-				When <strong>Not a Rat</strong> notices you doomscrolling or click-click-clicking
-				like a wild animal, it gently — but with <em>flair</em> — interrupts the spiral.
-			</p>
-			<p>
-				A rat appears. It is not judging you, exactly,
-				but it would like you to consider your choices. Then it asks you,
-				with the warmth of a slightly disappointed mother, to take a deep breath.
-			</p>
-			
-		</section>
+<nav>
+  <div class="navbox">
+    <span class="brand"><img src="assets/series/logo.png" alt="">Brain Rat</span>
+    <span class="navlinks">
+      <a href="#how">How it works</a>
+      <a href="#series">The rats</a>
+      <a href="#spin">Spin</a>
+      <a href="#video">Demo</a>
+      <a href="#extension">Extension</a>
+      <a class="join" href="#waitlist">Get early access</a>
+    </span>
+  </div>
+</nav>
 
-		<!-- Features -->
-		<section class="card">
-			<h2>The amenities, darling</h2>
-			<ul class="features">
-				<li><strong>A forced little pause</strong> — the scroll buttons lock for five seconds while you take a deep breath. Consider it a spa moment.</li>
-				<li><strong>Tasteful Up / Down controls</strong> — for navigating with intention, like a person, not a panicked little mammal.</li>
-				<li><strong>Collects absolutely nothing</strong> — no data, no tracking, no telemetry. What happens between you and your scrolling stays there.</li>
-			</ul>
-		</section>
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+  <div class="wrap hero-in">
+    <span class="pill"><span class="dot"></span> In development · Series 01</span>
+    <h1>Brain&nbsp;Rat<span class="wink">🐀</span></h1>
+    <p class="tagline">Your apps, locked behind a very small rat.</p>
+    <p class="sub">A little rat that sits on your shelf. Put it somewhere annoying, tap your phone on its head, and your apps open for a while. That's the whole product.</p>
+    <div class="cta">
+      <a class="btn btn-amber" href="#waitlist">Get early access</a>
+      <a class="btn btn-plain" href="#how">How it works ↓</a>
+    </div>
+    <p class="note">Coming to iPhone &amp; Android · Not out yet</p>
 
-		<!-- About -->
-		<section class="card">
-			<h2>A word on the philosophy</h2>
-			<p>
-				We have all, at one point, found ourselves at the bottom of a feed at an
-				ungodly hour, eyes glazed, thumb moving of its own accord. It's the kind of
-				behavior one simply does not discuss at brunch.
-			</p>
-			<p>
-				<strong>Not a Rat</strong> exists to restore your dignity. It is a small,
-				loving nudge, the friend who gently removes the cocktail from your hand and
-				says, "I think you've had a lovely time, and now it's time to drink some water."
-				You are capable of so much more than this. So slow down. You're not a rat.
-			</p>
-		</section>
+    <div class="box">
+      <span class="ribbon">Series 01</span>
+      <span class="spark" style="top:14px; right:20px">✦</span>
+      <span class="spark" style="bottom:26px; left:18px; animation-delay:1.2s">✧</span>
+      <img src="assets/series/logo.png" alt="The Brain Rat character, pressing a button">
+      <span class="ser">01 / 09</span>
+    </div>
+  </div>
+</header>
 
-		<footer>
-			<p>&copy; Not a Rat. Made with love and mild concern.</p>
-		</footer>
+<div class="ticker">
+  <div class="ticker-in">
+    <span>Slow down <i>✦</i></span><span>Tap to unlock <i>✦</i></span><span>Collect the set <i>✦</i></span>
+    <span>One rat, one key <i>✦</i></span><span>No accounts, no cloud <i>✦</i></span><span>Squeak squeak <i>✦</i></span>
+    <span>Slow down <i>✦</i></span><span>Tap to unlock <i>✦</i></span><span>Collect the set <i>✦</i></span>
+    <span>One rat, one key <i>✦</i></span><span>No accounts, no cloud <i>✦</i></span><span>Squeak squeak <i>✦</i></span>
+  </div>
+</div>
 
-	</div>
+<!-- ============ HOW ============ -->
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">How it works</span>
+      <h2>Three steps. Then you're done forever.</h2>
+      <p>Set it up once, and the only thing you ever do again is walk over and tap.</p>
+    </div>
+    <div class="steps">
+      <div class="step rv"><span class="n">1</span><span class="ic">📱</span>
+        <h3>Pick your problem apps</h3>
+        <p>Instagram. TikTok. The one you'd rather not name out loud. They go quiet until you say otherwise.</p>
+      </div>
+      <div class="step rv"><span class="n">2</span><span class="ic">🐀</span>
+        <h3>Put your rat somewhere far</h3>
+        <p>By the front door. On the kitchen shelf. Up a flight of stairs. Your phone writes a secret key into it — that rat, and no other, is now your key.</p>
+      </div>
+      <div class="step rv"><span class="n">3</span><span class="ic">✨</span>
+        <h3>Walk over, tap, get your minutes</h3>
+        <p>Hold your phone against its head. Apps open for 15, 30, 60 minutes — or as long as you asked for. Then they close again.</p>
+      </div>
+    </div>
+    <div class="plain rv narrow" style="margin-top:34px">
+      <span class="em">🧠</span>
+      <span><b>In plain terms:</b> the walk is the point. By the time you've crossed the room, the urge has usually filed its own resignation.</span>
+    </div>
+  </div>
+</section>
 
-	<!-- Squeak popup: shows the rat + plays "squeak squeak" before sending you to the store -->
-	<div class="rat-popup" id="rat-popup" aria-hidden="true">
-		<img src="rat.gif" alt="A very excited rat" />
-		<p>squeak squeak! 🐀</p>
-	</div>
+<!-- ============ SERIES ============ -->
+<section id="series" style="background:var(--card); border-top:3px solid var(--ink); border-bottom:3px solid var(--ink)">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Series 01 · Nine to collect</span>
+      <h2>Every rat is a thing you could be doing instead.</h2>
+      <p>Each rat is a palm-sized figure with the chip hidden in its base. They arrive blind-boxed, so you get one at random — and yes, there is a secret one. Every rat unlocks exactly the same way. Which one you end up living with is purely a matter of personality.</p>
+    </div>
+    <div class="series" id="series-grid"></div>
+    <div class="inbox">
+      <div class="rv"><span class="k">In the box</span><b>One rat</b><span>A palm-sized figure, weighted so it stays put wherever you abandon it.</span></div>
+      <div class="rv"><span class="k">Inside the rat</span><b>An NFC chip</b><span>Tucked into the base. No battery, no charging, nothing to break.</span></div>
+      <div class="rv"><span class="k">Which one</span><b>A surprise</b><span>Blind-boxed from the nine above, plus a secret you are unlikely to see.</span></div>
+      <div class="rv"><span class="k">Also included</span><b>The app</b><span>Free for iPhone and Android. The rat is the part you actually buy.</span></div>
+    </div>
 
-	<script>
-		(function () {
-			var popup = document.getElementById("rat-popup");
+    <div class="plain rv narrow" style="margin-top:34px">
+      <span class="em">📦</span>
+      <span><b>To be very clear:</b> one rat is all you need. It works straight out of the box, and the app never asks for a second. The other eight are a character flaw, and I say that with love.</span>
+    </div>
+  </div>
+</section>
 
-			// Synthesize a "squeak squeak" with the Web Audio API (no external file needed).
-			function squeak() {
-				try {
-					var Ctx = window.AudioContext || window.webkitAudioContext;
-					if (!Ctx) return;
-					var ctx = new Ctx();
+<!-- ============ ROULETTE ============ -->
+<section id="spin">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Pick your unlock</span>
+      <h2>How long do you get? You decide. Or let the wheel.</h2>
+      <p>Every time you tap your rat, you choose a window. Give it a spin to see what each one is actually like.</p>
+    </div>
+    <div class="roul">
+      <div class="wheel-wrap rv">
+        <div class="pointer"></div>
+        <div id="wheel"></div>
+        <button class="hub" id="spin-btn" type="button">SPIN</button>
+      </div>
+      <div class="prize rv" id="prize">
+        <span class="tag" style="background:var(--butter)">Tap the wheel</span>
+        <h3>Six ways to be let back in.</h3>
+        <p>Press SPIN and the wheel will assign you an unlock window, entirely at random, the way the universe assigns most things. Each one is a real option in the app.</p>
+        <p class="fine">No sign-up. No consequence. Purely for the drama.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-					function chirp(start) {
-						var osc = ctx.createOscillator();
-						var gain = ctx.createGain();
-						osc.type = "sawtooth";
-						osc.frequency.setValueAtTime(1400, start);
-						osc.frequency.exponentialRampToValueAtTime(2600, start + 0.08);
-						osc.frequency.exponentialRampToValueAtTime(1200, start + 0.16);
-						gain.gain.setValueAtTime(0.0001, start);
-						gain.gain.exponentialRampToValueAtTime(0.25, start + 0.02);
-						gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.18);
-						osc.connect(gain).connect(ctx.destination);
-						osc.start(start);
-						osc.stop(start + 0.2);
-					}
+<!-- ============ VIDEO ============ -->
+<section id="video" style="background:var(--lilac); border-top:3px solid var(--ink); border-bottom:3px solid var(--ink)">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">The demo</span>
+      <h2>Here it is, actually working.</h2>
+      <p>A recording of the real build — no mock-ups, no smoke. A rat gets tapped, a lock lifts, a countdown starts.</p>
+    </div>
+    <div class="video rv" id="player">
+      <video id="demo" playsinline preload="metadata" poster="assets/demo-poster.jpg">
+        <source src="assets/demo.mp4" type="video/mp4">
+      </video>
+      <button class="play" id="play-btn" type="button" aria-label="Play the Brain Rat demo">
+        <i aria-hidden="true">&#9654;</i><span>Brain Rat MVP &middot; 0:31</span>
+      </button>
+    </div>
+    <p class="video-cap rv">Still rough around the edges — judge it as a rehearsal, not an opening night.</p>
+  </div>
+</section>
 
-					var now = ctx.currentTime;
-					chirp(now);        // squeak
-					chirp(now + 0.25); // squeak
-				} catch (e) { /* audio is a nicety, never block navigation */ }
-			}
+<!-- ============ FEATURES ============ -->
+<section id="features">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">What's in the box</span>
+      <h2>Small app. Very few opinions.</h2>
+    </div>
+    <div class="feats">
+      <div class="feat rv" style="background:var(--mint)"><span class="ic">🔒</span><h3>It really blocks</h3><p>On iPhone, Apple's own Screen Time does the locking. On Android, a block screen appears over the app.</p></div>
+      <div class="feat rv" style="background:var(--blush)"><span class="ic">⏳</span><h3>Timed windows</h3><p>15, 30, 60 minutes or open-ended. A countdown shows what's left, and you can lock early.</p></div>
+      <div class="feat rv" style="background:var(--sky)"><span class="ic">🔑</span><h3>Your rat only</h3><p>Every figure carries its own key, paired to your phone. Someone else's rat won't open a thing.</p></div>
+      <div class="feat rv" style="background:var(--butter)"><span class="ic">📊</span><h3>Gentle stats</h3><p>How often you made the walk, how often the phone won. Seven days, no lectures.</p></div>
+      <div class="feat rv" style="background:var(--coral)"><span class="ic">🔔</span><h3>A warning first</h3><p>A nudge before your time runs out, so the lock never ambushes you mid-sentence.</p></div>
+      <div class="feat rv" style="background:var(--sage)"><span class="ic">🛜</span><h3>Stays on your phone</h3><p>No account, no cloud, no tracking. Works in airplane mode. Nobody sees your list — not even us.</p></div>
+    </div>
+    <div class="plain rv narrow" style="margin-top:34px">
+      <span class="em">⚠️</span>
+      <span><b>The honest bit:</b> on iPhone, Apple doesn't let any app slam the door on another one. So Brain Rat hands the locking to Screen Time and acts as the gatekeeper — the rat decides when you're allowed through. On Android it does the blocking itself.</span>
+    </div>
+  </div>
+</section>
 
-			function handle(e) {
-				var link = e.currentTarget;
-				var href = link.getAttribute("href");
-				e.preventDefault();
+<!-- ============ EXTENSION ============ -->
+<section id="extension" style="background:var(--pool); border-top:3px solid var(--ink); border-bottom:3px solid var(--ink)">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">For your laptop · Out now</span>
+      <h2>There is a rat for your browser, too.</h2>
+      <p>The figure takes care of your phone. <b>Not a Rat</b> takes care of the other screen — a free extension for Firefox and Chrome that interrupts a doomscroll already in progress. That one you can have today.</p>
+    </div>
+    <div class="ext">
+      <div class="ext-main rv">
+        <img class="ext-ico" src="assets/icon.png" alt="">
+        <span class="ext-badge">Free · No account</span>
+        <h3>Not a Rat</h3>
+        <p class="tag">Slow down. You're not a rat.</p>
+        <p>When it notices you clicking with the manic energy of a raccoon who has found an unattended bin, a rat appears. It is not judging you, exactly, but it would like you to consider your choices — and then it asks you, with the warmth of a slightly disappointed mother, to take a deep breath.</p>
+        <div class="stores">
+          <a class="btn btn-amber btn-store" id="ff-link" href="https://addons.mozilla.org/en-US/firefox/addon/not-a-rat/">Get it for Firefox<small>Mozilla Add-ons</small></a>
+          <a class="btn btn-plain btn-store" id="cr-link" href="https://chromewebstore.google.com/detail/not-a-rat/hhlgcbmpmekjlflbccelhbjaemojenba">Get it for Chrome<small>Chrome Web Store</small></a>
+        </div>
+      </div>
+      <ul class="ext-list rv">
+        <li><b>A forced little pause</b>The scroll buttons lock for five seconds while you take a deep breath. Consider it a spa moment.</li>
+        <li><b>Tasteful up / down controls</b>For navigating with intention, like a person, and not a panicked little mammal.</li>
+        <li><b>Collects absolutely nothing</b>No data, no tracking, no telemetry. What happens between you and your scrolling stays there.</li>
+      </ul>
+    </div>
+    <div class="plain rv narrow" style="margin-top:34px">
+      <span class="em">💻</span>
+      <span><b>Same idea:</b> the rat on your shelf makes you cross a room; this one makes you wait five seconds. A brief, slightly embarrassing interruption, either way.</span>
+    </div>
+  </div>
+</section>
 
-				popup.classList.add("show");
-				popup.setAttribute("aria-hidden", "false");
-				squeak();
+<!-- ============ WAITLIST ============ -->
+<section id="waitlist">
+  <div class="wrap narrow">
+    <div class="signup rv">
+      <h2>Be told the moment it's ready.</h2>
+      <p>One message, when there's genuinely something to open. No newsletter. No updates about our journey.</p>
+      <a class="btn btn-amber" href="mailto:panickerravishankar123@gmail.com?subject=Brain%20Rat%20early%20access">Join the waitlist</a>
+      <small>Your email is used once, for this. Nothing else.</small>
+    </div>
+  </div>
+</section>
 
-				// Let the rat have his moment, then continue to the store.
-				setTimeout(function () {
-					if (href && href !== "#") {
-						window.location.href = href;
-					}
-					popup.classList.remove("show");
-					popup.setAttribute("aria-hidden", "true");
-				}, 1300);
-			}
+<!-- ============ FAQ ============ -->
+<section id="faq">
+  <div class="wrap narrow">
+    <div class="sec-head rv">
+      <span class="eyebrow">Questions</span>
+      <h2>Things you were going to ask anyway.</h2>
+    </div>
+    <div class="rv">
+      <details open><summary>When can I actually have it?</summary><p>A small closed beta comes first, once Android stops misbehaving on the more idiosyncratic handsets. Waitlist people hear before everyone else — that is the entire point of a waitlist, bébé.</p></details>
+      <details><summary>What will it cost?</summary><p>The beta is free. Pricing after that is undecided, and I refuse to invent a number simply to fill a space on a webpage.</p></details>
+      <details><summary>Does the rat come with the app?</summary><p>They are one product. A box contains one rat, chosen at random from Series 01, and the app is free to download once you have it. Pricing for the box is still being worked out.</p></details>
+      <details><summary>Is the browser extension the same thing?</summary><p>Same spirit, different screen — and it already exists. <a href="#extension">Not a Rat</a> is free on Firefox and Chrome, it holds your scroll for five seconds instead of making you walk anywhere, and it needs no rat, no phone and no account. Think of it as the understudy.</p></details>
+      <details><summary>iPhone or Android?</summary><p>Both at launch. iPhone is further along; Android is in the thick of it. Neither ships until both behave.</p></details>
+      <details><summary>Does it work without internet?</summary><p>Beautifully. Tapping needs nothing but proximity, and Brain Rat needs nothing but you.</p></details>
+      <details><summary>Couldn't I just carry the rat around in my pocket?</summary><p>You could. You could also eat the entire wheel of cheese. Nobody here is going to stop you — but we will both know, and the rat has a face.</p></details>
+    </div>
+  </div>
+</section>
 
-			document.getElementById("firefox-link").addEventListener("click", handle);
-			document.getElementById("chrome-link").addEventListener("click", handle);
+<footer>
+  <div class="sig">Made with love and mild concern.</div>
+  <p>Brain Rat — <em>Slow down.</em> · In development, 2026 · <a href="#waitlist">Join the waitlist</a></p>
+  <p>Not yet on the App Store or Google Play. The browser extension, however, is <a href="#extension">out now</a>. squeak squeak 🐀</p>
+</footer>
 
-			// Tap/click the overlay to dismiss it early.
-			popup.addEventListener("click", function () {
-				popup.classList.remove("show");
-				popup.setAttribute("aria-hidden", "true");
-			});
-		})();
-	</script>
+<!-- Squeak popup: the rat gets a moment before you are sent off to a store -->
+<div class="squeak" id="squeak" aria-hidden="true">
+  <img src="assets/rat-squeak.gif" alt="A very excited rat" loading="lazy">
+  <p>squeak squeak! 🐀</p>
+</div>
+
+<script src="js/main.js"></script>
+
 </body>
 </html>
